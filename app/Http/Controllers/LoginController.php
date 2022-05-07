@@ -38,22 +38,25 @@ class LoginController extends Controller{
             'usuario' => 'required',
             'pasw' => 'required'
         ]);
-        /*$paswordEncriptado = Hash::make($request->pasw);
-        echo $paswordEncriptado;*/
+        // $paswordEncriptado = Hash::make($request->pasw);
+        // echo $paswordEncriptado;
     $consulta = usuarios::where('user',$request->usuario)
     ->where('activo','Si')
     ->get();
     $cuantos = count($consulta);
-    if($cuantos==1 and hash::check($request->pasw,$consulta[0]->pasw))
-    {
+    
+     if($cuantos==1 and Hash::check($request->pasw,$consulta[0]->pasw))
+     {
+        echo "acceso concedido";
         Session::put('sessionusuario',$consulta[0]->nombre . ' ' .$consulta[0]->apellido);
         Session::put('sessiontipo',$consulta[0]->tipo);
         Session::put('sessionidu',$consulta[0]->idu);
+        
         return redirect()->route('principal');
-    }
-    else {
-        Session::flash('mensaje',"El usuario o password no son válidos");
-        return redirect()->route('login');
-    }
+     }
+     else {
+         Session::flash('mensaje',"El usuario o password no son válidos");
+         return redirect()->route('login');
+     }
   }
 }

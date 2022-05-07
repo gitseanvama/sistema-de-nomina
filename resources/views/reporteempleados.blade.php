@@ -24,9 +24,11 @@
           </tr>
         </thead>
         <tbody>
+          
             @foreach($consulta as $c)
+
           <tr>
-            <td><img src="{{asset('archivos/'. $c->img)}}" height = 50 width=50></td>
+            <td><img src="{{asset('archivos/'. $c->img)}} ? {{asset('archivos/sinfoto.jpg')}}" height = 50 width=50></td>
             <th scope="row">{{$c->ide}}</th>
             <td>{{$c->nombre}}  {{$c->apellido}}</td>
             <td>{{$c->email}}</td>
